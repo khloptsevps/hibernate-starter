@@ -40,3 +40,5 @@ build/
 
 ### Other ###
 src/main/resources/hibernate.cfg.xml
+logs
+logs/*
