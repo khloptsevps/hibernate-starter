@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <configuration>
-    <import class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"/>
     <import class="ch.qos.logback.core.ConsoleAppender"/>
+    <import class="ch.qos.logback.core.rolling.RollingFileAppender"/>
+    <import class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"/>
+    <import class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy" />
 
     <appender name="STDOUT" class="ConsoleAppender">
         <encoder class="PatternLayoutEncoder">
@@ -10,18 +12,18 @@
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="FILE" class="RollingFileAppender">
 <!--        <file>logs/application.log</file>-->
 
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!--для архивных логов -->
+        <rollingPolicy class="SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>logs/application.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!--для архивных логов -->
             <fileNamePattern>logs/application.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
 <!--            <fileNamePattern>logs/application.%d{yyyy-MM-dd}.log</fileNamePattern>-->
 
             <!-- Максимальный размер одного файла -->
             <maxFileSize>10MB</maxFileSize>
-            <!-- Максимум 10 файлов в каталоге -->
+            <!-- Максимум 5 файлов в каталоге -->
             <maxHistory>5</maxHistory>
             <!-- Общий лимит на суммарный размер всех логов (опционально) -->
             <!-- <totalSizeCap>50MB</totalSizeCap> -->
