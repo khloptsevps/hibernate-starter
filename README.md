@@ -14,5 +14,5 @@
 
 ## Запуск
 1. Подключиться к БД (MySQL/PostgreSQL)
-2. Создать БД с таблицей `users` (скрипт в `src/main/resources`)
+2. Создать БД с таблицей `users` (скрипт в `src/main/scripts`)
 3. Добавить конфигурацию в **hibernate.cfg.xml**
