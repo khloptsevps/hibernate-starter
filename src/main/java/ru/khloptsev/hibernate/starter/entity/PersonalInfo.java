@@ -20,9 +20,7 @@ public class PersonalInfo {
     private Birthday birthDate;
     private int age;
 
-    @PrePersist
-    @PreUpdate
-    private void calculateAgeBeforeSave() {
+    void calculateAgeBeforeSave() {
         if (birthDate == null) {
             age = 0;
         } else {
@@ -30,8 +28,7 @@ public class PersonalInfo {
         }
     }
 
-    @PostLoad
-    private void calculateAgeAfterLoad() {
+    void calculateAgeAfterLoad() {
         if (birthDate == null) {
             age = 0;
         } else {

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.khloptsev.hibernate.starter.converter.BirthdayConverter;
 
 @Data
 @NoArgsConstructor
@@ -22,5 +21,14 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
+    @PrePersist
+    @PreUpdate
+    private void calcAgeBeforeSave() {
+        personalInfo.calculateAgeBeforeSave();
+    }
 
+    @PostLoad
+    private void calcAgeAfterLoad() {
+        personalInfo.calculateAgeAfterLoad();
+    }
 }
