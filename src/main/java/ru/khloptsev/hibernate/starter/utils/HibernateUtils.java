@@ -6,12 +6,24 @@ import ru.khloptsev.hibernate.starter.converter.BirthdayConverter;
 
 public final class HibernateUtils {
     private HibernateUtils() {}
+    private static SessionFactory instance;
 
-    public static SessionFactory buildSessionFactory() {
+    static {
+        try {
+            initSession();
+        } catch (Exception e) {
+            throw new RuntimeException("Не удалось инициализировать SessionFactory", e);
+        }
+    }
+
+    private static void initSession() {
         Configuration configuration = new Configuration();
-//        configuration.addAttributeConverter(BirthdayConverter.class, true);
+        configuration.addAttributeConverter(BirthdayConverter.class, true);
         configuration.configure();
+        instance = configuration.buildSessionFactory();
+    }
 
-        return configuration.buildSessionFactory();
+    public static SessionFactory getSessionFactory() {
+        return instance;
     }
 }
