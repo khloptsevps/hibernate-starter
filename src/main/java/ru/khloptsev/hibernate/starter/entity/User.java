@@ -15,32 +15,12 @@ import ru.khloptsev.hibernate.starter.converter.BirthdayConverter;
 @Table(name = "users", schema = "hibernate")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String email;
-    private String firstname;
-    private String lastname;
-    @Column(name = "birth_date")
-    @Convert(converter = BirthdayConverter.class)
-    private Birthday birthDate;
-    private int age;
+    PersonalInfo personalInfo;
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @PrePersist
-    @PreUpdate
-    private void calculateAgeBeforeSave() {
-        if (birthDate == null) {
-            age = 0;
-        } else {
-            age = birthDate.getAge();
-        }
-    }
 
-    @PostLoad
-    private void calculateAgeAfterLoad() {
-        if (birthDate == null) {
-            age = 0;
-        } else {
-            age = birthDate.getAge();
-        }
-    }
 }
