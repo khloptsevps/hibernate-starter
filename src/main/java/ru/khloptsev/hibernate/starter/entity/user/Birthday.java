@@ -1,4 +1,4 @@
-package ru.khloptsev.hibernate.starter.entity;
+package ru.khloptsev.hibernate.starter.entity.user;
 
 import java.time.LocalDate;
 import java.time.Period;

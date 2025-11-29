@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.khloptsev.hibernate.starter.converter.BirthdayConverter;
-import ru.khloptsev.hibernate.starter.entity.Birthday;
+import ru.khloptsev.hibernate.starter.entity.user.Birthday;
 
 import java.sql.Date;
 import java.time.LocalDate;

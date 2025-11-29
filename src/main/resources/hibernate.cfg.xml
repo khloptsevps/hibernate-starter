@@ -12,8 +12,8 @@
       <property name="format_sql">true</property>
 <!--      <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>-->
       <property name="default_schema">hibernate</property>
-      <mapping class="ru.khloptsev.hibernate.starter.entity.User" />
-      <mapping class="ru.khloptsev.hibernate.starter.entity.Company" />
+      <mapping class="ru.khloptsev.hibernate.starter.entity.user.User" />
+      <mapping class="ru.khloptsev.hibernate.starter.entity.user.Company" />
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
   </session-factory>

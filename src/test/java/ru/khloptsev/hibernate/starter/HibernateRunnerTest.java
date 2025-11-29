@@ -5,10 +5,9 @@ import jakarta.persistence.Table;
 import lombok.Cleanup;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import ru.khloptsev.hibernate.starter.entity.*;
+import ru.khloptsev.hibernate.starter.entity.user.*;
 import ru.khloptsev.hibernate.starter.utils.HibernateUtils;
 
 import java.lang.reflect.Field;
@@ -21,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Собрать строку как будто это Hibernate")
 class HibernateRunnerTest {
+
     @Test
     public void testHibernateApi() {
         Company company = Company.builder()

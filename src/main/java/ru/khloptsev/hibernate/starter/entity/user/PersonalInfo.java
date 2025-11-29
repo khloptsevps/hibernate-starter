@@ -1,4 +1,4 @@
-package ru.khloptsev.hibernate.starter.entity;
+package ru.khloptsev.hibernate.starter.entity.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -3,7 +3,7 @@ package ru.khloptsev.hibernate.starter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import ru.khloptsev.hibernate.starter.entity.*;
+import ru.khloptsev.hibernate.starter.entity.user.*;
 import ru.khloptsev.hibernate.starter.utils.HibernateUtils;
 
 import java.time.LocalDate;
@@ -29,8 +29,6 @@ public class HibernateRunner {
             try (Session session = HibernateUtils.getSessionFactory().openSession()) {
                 log.info("Открыта сессия: {}", session);
                 Transaction tz = session.beginTransaction();
-
-                session.persist(user);
                 tz.commit();
 
             } catch (Exception e) {

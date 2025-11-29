@@ -2,7 +2,7 @@ package ru.khloptsev.hibernate.starter.converter;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import ru.khloptsev.hibernate.starter.entity.Birthday;
+import ru.khloptsev.hibernate.starter.entity.user.Birthday;
 
 import java.sql.Date;
 import java.util.Optional;

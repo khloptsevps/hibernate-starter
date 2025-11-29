@@ -1,4 +1,4 @@
-package ru.khloptsev.hibernate.starter.entity;
+package ru.khloptsev.hibernate.starter.entity.user;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,7 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
-    @Column(nullable = false, unique = true)
+    @Column(unique = true, name = "email", nullable = false)
     private String email;
     PersonalInfo personalInfo;
     @Enumerated(value = EnumType.STRING)
