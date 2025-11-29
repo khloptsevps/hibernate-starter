@@ -13,6 +13,7 @@
 <!--      <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>-->
       <property name="default_schema">hibernate</property>
       <mapping class="ru.khloptsev.hibernate.starter.entity.User" />
+      <mapping class="ru.khloptsev.hibernate.starter.entity.Company" />
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
   </session-factory>

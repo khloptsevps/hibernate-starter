@@ -1,5 +1,6 @@
 package ru.khloptsev.hibernate.starter.utils;
 
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.khloptsev.hibernate.starter.converter.BirthdayConverter;
@@ -11,7 +12,7 @@ public final class HibernateUtils {
     static {
         try {
             initSession();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             throw new RuntimeException("Не удалось инициализировать SessionFactory", e);
         }
     }

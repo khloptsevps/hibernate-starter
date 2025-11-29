@@ -1,6 +1,12 @@
 drop table if exists users;
 drop table if exists company;
 
+CREATE TABLE company
+(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(128) UNIQUE NOT NULL
+);
+
 CREATE TABLE users
 (
     id SERIAL PRIMARY KEY,
@@ -9,11 +15,7 @@ CREATE TABLE users
     lastname VARCHAR(128),
     birth_date DATE,
     age INT,
-    role VARCHAR(24)
+    role VARCHAR(24),
+    company_id SERIAL references company(id)
 );
 
-CREATE TABLE company
-(
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(128) UNIQUE NOT NULL
-);

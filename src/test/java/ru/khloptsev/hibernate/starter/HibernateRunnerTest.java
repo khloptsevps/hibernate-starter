@@ -2,11 +2,14 @@ package ru.khloptsev.hibernate.starter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
+import lombok.Cleanup;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import ru.khloptsev.hibernate.starter.entity.Birthday;
-import ru.khloptsev.hibernate.starter.entity.User;
+import ru.khloptsev.hibernate.starter.entity.*;
+import ru.khloptsev.hibernate.starter.utils.HibernateUtils;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;
@@ -20,11 +23,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class HibernateRunnerTest {
     @Test
     public void testHibernateApi() {
+        Company company = Company.builder()
+                .name("Mail")
+                .build();
         User u1 = User.builder()
-                .email("mail@example.ex")
-                .firstname("Test")
-                .lastname("User")
-                .birthDate(new Birthday(LocalDate.of(2000, 1, 1)))
+                .email("ivan1@gmail.com")
+                .personalInfo(PersonalInfo.builder()
+                        .firstname("Ivan")
+                        .lastname("Ivanov")
+                        .birthDate(new Birthday(LocalDate.of(1995, 5, 23)))
+                        .build())
+                .role(Role.USER)
                 .build();
 
         String sqlTemplate = """
@@ -40,9 +49,9 @@ class HibernateRunnerTest {
                 insert
                 into
                 hibernate.users
-                (email, firstname, lastname, birth_date, age, role)
+                (id, email, personalInfo, role, company)
                 values
-                (?, ?, ?, ?, ?, ?)
+                (?, ?, ?, ?, ?)
                 """;
 
         String table = Optional.ofNullable(u1.getClass().getAnnotation(Table.class))
@@ -63,5 +72,58 @@ class HibernateRunnerTest {
         String actual = sqlTemplate.formatted(table, columnNames, columnValues);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testOneToMany() {
+        @Cleanup
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction tz = session.beginTransaction();
+        var company = session.find(Company.class, 1);
+        System.out.println(company.getUsers());
+        tz.commit();
+    }
+
+    @Test
+    public void checkAddUserAndCompany() {
+        @Cleanup
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction tz = session.beginTransaction();
+        Company newCompany = Company.builder()
+                .name("Yandex")
+                .build();
+        User newUser = User.builder()
+                .email("ivan4@gmail.com")
+                .role(Role.ADMIN)
+                .build();
+        newCompany.addUser(newUser);
+        session.persist(newCompany);
+        tz.commit();
+    }
+
+    @Test
+    public void addUserInCompany() {
+        @Cleanup
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction tz = session.beginTransaction();
+        Company company = session.find(Company.class, 7);
+        User newUser = User.builder()
+                .email("ivan5@gmail.com")
+                .role(Role.ADMIN)
+                .build();
+
+        if (company != null) {
+            company.addUser(newUser);
+        }
+        tz.commit();
+    }
+
+    @Test void checkOrphanRemoval() {
+        @Cleanup
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction tz = session.beginTransaction();
+        Company company = session.find(Company.class, 7);
+        company.getUsers().removeIf(user -> user.getId() == 3);
+        tz.commit();
     }
 }
